@@ -16,17 +16,18 @@ export default {
             return '1271361907@qq.com'
         },
         get pass(){
-            return 'mgtjblkehyvvifac'
-        }
-    },
-    get code(){
-        return ()=>{
-            return Math.random().toString(16).slice(2,6).toUpperCase();
-        }
-    },
-    get expire() {
-        return ()=>{
-            return new Date().getTime()+60*60*1000
+            return ''
+        },
+        get code(){
+            return ()=>{
+                return Math.random().toString(16).slice(2,6).toUpperCase();
+            }
+        },
+        get expire() {
+            return ()=>{
+                return new Date().getTime()+60*60*1000
+            }
         }
     }
+    
 }
