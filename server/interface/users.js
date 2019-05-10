@@ -46,7 +46,7 @@ router.post('/signup',async (ctx)=> {
     let user = await User.find({
         username
     })
-    let user = await User.find({username})
+
     if (user.length) {
         ctx.body = {
         code: -1,

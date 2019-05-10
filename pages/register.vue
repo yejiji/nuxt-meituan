@@ -58,7 +58,7 @@
                 <el-button
                     type="primary"
                     @click="register">同意以下协议并注册</el-button>
-                <div class="error">{{ error }}</div>
+                    <div class="error">{{ error }}</div>
                 </el-form-item>
                 <el-form-item>
                 <a
@@ -71,6 +71,7 @@
     </div>
 </template>
 <script>
+import CryptoJS from 'crypto-js'
 export default {
     layout:'blank',
     data() {
@@ -141,7 +142,7 @@ export default {
               })
           if(!namePass&&!emailPass){
             self.$axios.post('/users/verify',{
-              username:encodeURIComponent(self,ruleForm.name),
+              username:encodeURIComponent(self.ruleForm.name),
               email:self.ruleForm.email
             }).then(({status,data})=>{
               if(status === 200 && data && data.code ===0){
@@ -160,7 +161,33 @@ export default {
           }    
         },
         register:function () {
-            
+            let self = this;
+              this.$refs['ruleForm'].validate((valid) => {
+                if (valid) {
+                  self.$axios.post('/users/signup', {
+                    username: window.encodeURIComponent(self.ruleForm.name),
+                    password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
+                    email: self.ruleForm.email,
+                    code: self.ruleForm.code
+                  }).then(({
+                    status,
+                    data
+                  }) => {
+                    if (status === 200) {
+                      if (data && data.code === 0) {
+                        location.href = '/login'
+                      } else {
+                        self.error = data.msg
+                      }
+                    } else {
+                      self.error = `服务器出错，错误码:${status}`
+                    }
+                    setTimeout(function () {
+                      self.error = ''
+                    }, 1500)
+                  })
+                }
+              })
         }
     }
 }
