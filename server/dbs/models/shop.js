@@ -4,51 +4,22 @@ const Shop = new Schema({
   name: {
     type: String//景点名
   },
-  province: {
-    type: String
-  },
-  city:{
+  pos: {
     type:String
   },
-  county:{
-    type:String
-  },
-  areaCode:{
-    type:String
-  },
-  tel:{
-    type:String
-  },
-  area:{
-    type:String
-  },
-  addr:{
-    type:String
-  },
-  pos:{
-    type:String
-  },
-  price:{
+  price: {
     type:Number
   },
-  img:{
+  img: {
     type:String
   },
-  url:{
+  url: {
     type:String
   },
   type:{
     type:String
-  },
-  module:{
-    type:String
-  },
-  longitude:{
-    type:Number
-  },
-  latitude:{
-    type:Number
   }
+
 })
 
 export default mongoose.model('Shop', Shop)
